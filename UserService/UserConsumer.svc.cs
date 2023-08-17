@@ -84,7 +84,7 @@ namespace UserService
                             {
                                 IdUser = Convert.ToInt32(reader["user_id"]),
                                 NameUser = reader["name"].ToString(),
-                                Birthdate = Convert.ToDateTime(reader["birthdate"]),
+                                Birthdate = reader["birthdate"].ToString(),
                                 GenderUser = reader["gender"].ToString()
                             };
                             userList.Add(user);
@@ -119,7 +119,7 @@ namespace UserService
                             {
                                 IdUser = Convert.ToInt32(reader["user_id"]),
                                 NameUser = reader["name"].ToString(),
-                                Birthdate = Convert.ToDateTime(reader["birthdate"]),
+                                Birthdate = reader["birthdate"].ToString(),
                                 GenderUser = reader["gender"].ToString()
                             };
                             userList.Add(user);

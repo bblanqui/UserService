@@ -1,5 +1,5 @@
 ﻿using System.Data.SqlClient;
-
+using System.Configuration;
 namespace Datos
 {
     public class ConectionUser
@@ -7,7 +7,8 @@ namespace Datos
 
         public SqlConnection ConectUser()
         {
-            return new SqlConnection("Data Source = localhost; Initial Catalog = digital_bank; Integrated Security = True;");
+           
+            return new SqlConnection(ConfigurationManager.ConnectionStrings["cn"].ConnectionString);
         }
         }
     }

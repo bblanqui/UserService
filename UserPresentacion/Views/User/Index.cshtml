@@ -1,0 +1,54 @@
+﻿
+@{
+    ViewBag.Title = "Inicio";
+}
+
+<div class="container">
+    <div class="row  justify-content-center align-items-center custom-center">
+        <div class="row justify-content-center align-items-center custom-container">
+            <div class="col-md-6 miclasedos  d-flex align-items-center justify-content-center">
+                <i class='bx bxs-user-plus bx-tada icono'></i>
+                <h1 class="titulo">User Register</h1>
+                <p class="parrafo">en este apartado puedes registrar usuarios nuevos en el servicio.</p>
+            </div>
+            <div class="col-md-6 miclase   d-flex align-items-center ">
+                <i class='bx bxs-user-check icono2'></i>
+                <h1 class="titulo2">Registra un usuario!</h1>
+
+                <form id="formulario" action="">
+                    <div class="input-box">
+
+                        <input id="nombre"  name="nombre" type="text"  />
+                        <label >Nombres</label>
+
+                    </div>
+                    <div class="input-box2">
+
+                        <div class="form-row">
+                           
+                            <div class="form-group col-md-6">
+                                <label for="inputState">Genero</label>
+                                <select id="inputState" class="form-control">
+                                    <option value="H" selected>Hombre</option>
+                                    <option value="M" selected>Mujer</option>
+                            
+                                </select>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="inputZip">Cumpleaños</label>
+                                <input type="date" class="form-control" id="inputZip">
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="input-box2">
+                        <button type="submit">Enviar</button>
+                    </div>
+             
+                </form>
+                
+            </div>
+        </div>
+
+    </div>
+</div>
