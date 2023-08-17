@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ServiceModel
+namespace Model
 {
     public class User
     {
