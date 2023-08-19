@@ -1,0 +1,123 @@
+﻿
+@{
+    ViewBag.Title = "Usuario consulta";
+}
+
+
+<div class="container">
+<div class="row  justify-content-center align-items-center custom-center">
+    <div class="row justify-content-center align-items-center custom-container-list">
+        <div class="col-md-3 miclasedos  d-flex align-items-center justify-content-center">
+            <i class='bx bxs-user icono-list mb-4'></i>
+            <h1 class="titulo-list  mb-4">Usuarios registrados</h1>
+            <p class="parrafo-list">en este apartado estan todos los usuarios con sus funciones.</p>
+        </div>
+        <div class="col-md-9 miclase">
+
+            <i class='bx bxs-chevron-left atras mt-3' style="font-size: 30px; cursor: pointer;"></i>
+            <div class="search-container">
+                <input type="text" class="search-input" placeholder="Search" id="search" />
+                <i class='bx bx-search-alt-2 search-icon'></i>
+            </div>
+
+            <h1 style="font-size:24px; margin-top:2%; font-weight:700;">Usuarios</h1>
+
+
+            <div class=" contenedor">
+                <div class="row    d-flex  justify-content-center ">
+                    <div class=" row  mt-3 col-md-10 mb-2 ">
+                        <div class="col-md-3">
+                            <p class="table-titulo">Nombres</p>
+                        </div>
+                        <div class="col-md-3">
+                            <p class="table-titulo">Nacimiento </p>
+                        </div>
+                        <div class="col-md-3">
+                            <p class="table-titulo">Genero</p>
+                        </div>
+                        <div class="col-md-3">
+                            <p class="table-titulo">Acciones</p>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row d-flex  justify-content-center " id="registro">
+
+                </div>
+
+
+
+                <div id="buscar">
+                    <i class='bx bx-chevron-left' style="font-size: 28px; cursor: pointer;"></i>
+                    <i class='bx bx-chevron-right' style="font-size: 28px; cursor: pointer; "></i>
+                </div>
+
+
+            </div>
+
+
+        </div>
+    </div>
+
+</div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <p style="font-size:16px; font-weight:700;" class="modal-title" id="exampleModalLabel">Edit User</p>
+                <i class='bx bxs-chevron-right' style="font-size: 28px; cursor: pointer;" data-dismiss="modal"></i>
+            </div>
+            <div class="modal-body  container ">
+
+                <div class="row justify-content-center align-items-center ">
+
+
+
+
+                    <div class="col-md-10">
+
+
+
+                        <form id="formulario2" action="">
+                            <input id="ids" name="ids" hidden />
+                            <div class="input-box">
+
+                                <input id="nombre2" name="nombre" type="text" required />
+                                <label>Nombres</label>
+
+                            </div>
+                            <div class="input-box2">
+
+                                <div class="form-row">
+
+                                    <div class="form-group col-md-6">
+                                        <label for="inputState2">Genero</label>
+                                        <select id="inputState2" class="form-control">
+                                            <option value="H" selected>Hombre</option>
+                                            <option value="M" selected>Mujer</option>
+
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="inputZip">Fecha de nacimiento</label>
+                                        <input type="date" class="form-control" id="inputZip2">
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="input-box2">
+                                <button type="submit">Enviar</button>
+
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

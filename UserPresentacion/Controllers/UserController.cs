@@ -12,31 +12,26 @@ namespace UserPresentacion.Controllers
     {
         UserConsumer serviceUser = new UserConsumer();
 
-        // GET: User
+        // Index(): Solo renderiza la vista
         public ActionResult Index()
         {
             return View();
         }
 
-        // GET: User/Details/5
-        public ActionResult Details(int id)
+        // ListUsers(): Solo renderiza la vista
+        public ActionResult ListUsers()
         {
             return View();
         }
 
-        // GET: User/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
 
-        // POST: User/Create
+        // Create(): Recibe objeto User, devuelve JSON con mensaje
         [HttpPost]
         public JsonResult Create(Model.User usuario)
         {
-            string dateString = usuario.Birthdate;
-            DateTime parsedDate = DateTime.Parse(dateString);
-            bool result = serviceUser.CreateUser(usuario.NameUser, usuario.GenderUser, parsedDate);
+            
+           
+            bool result = serviceUser.CreateUser(usuario);
             if (result)
             {
                 return Json(new { message = "Usuario creado exitosamente" }, JsonRequestBehavior.AllowGet);
@@ -48,55 +43,56 @@ namespace UserPresentacion.Controllers
             }
         }
 
-        // GET: User/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
 
-        public JsonResult Users(int id)
+        // Users(): No recibe nada, devuelve lista de usuarios en JSON 
+        public JsonResult Users()
         {
             List<Model.User> usuario = serviceUser.ReadUsers();
             return Json(usuario, JsonRequestBehavior.AllowGet);
         }
-
-
-        // POST: User/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        // SearchUser(): Recibe nombre, devuelve lista filtrada en JSON
+        public JsonResult SearchUser(string name)
         {
-            try
-            {
-                // TODO: Add update logic here
+            List<Model.User> usuario = serviceUser.SearchUser(name);
+            return Json(usuario, JsonRequestBehavior.AllowGet);
+        }
+        // SearchUserId(): Recibe ID, devuelve usuario por ID en JSON
+        public JsonResult SearchUserId(int id)
+        {
+            List<Model.User> usuario = serviceUser.SearchUserId(id);
+            return Json(usuario, JsonRequestBehavior.AllowGet);
+        }
 
-                return RedirectToAction("Index");
-            }
-            catch
+        // Delete(): Recibe ID, devuelve JSON con mensaje
+        public JsonResult Delete(int id)
+        {
+            bool result = serviceUser.DeleteUser(id);
+            if (result)
             {
-                return View();
+                return Json(new { message = "Usuario eliminado exitosamente" }, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                return Json(new { message = "Error al eliminar el usuario" }, JsonRequestBehavior.AllowGet);
             }
         }
 
-        // GET: User/Delete/5
-        public ActionResult Delete(int id)
+        // UpUser(): Recibe objeto User, devuelve JSON con mensaje
+        public JsonResult UpUser (Model.User usuario)
         {
-            return View();
-        }
-
-        // POST: User/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
+            bool result = serviceUser.UpdateUser(usuario);
+            if (result)
             {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
+                return Json(new { message = "Usuario actualizado exitosamente" }, JsonRequestBehavior.AllowGet);
             }
-            catch
+            else
             {
-                return View();
+                Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                return Json(new { message = usuario }, JsonRequestBehavior.AllowGet);
             }
         }
+
+       
     }
 }

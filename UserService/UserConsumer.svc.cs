@@ -1,27 +1,23 @@
-﻿using Datos;
-using Model;
+﻿using Datos; // Referencia a proyecto de capa de datos
+using Model; // Referencia a proyecto de modelo
 using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Runtime.Serialization;
-using System.ServiceModel;
-using System.Text;
+using System.Data;// Para tipos como Command, DataReader
+
 
 
 namespace UserService
 {
-    // NOTA: puede usar el comando "Rename" del menú "Refactorizar" para cambiar el nombre de clase "UserConsumer" en el código, en svc y en el archivo de configuración a la vez.
-    // NOTA: para iniciar el Cliente de prueba WCF para probar este servicio, seleccione UserConsumer.svc o UserConsumer.svc.cs en el Explorador de soluciones e inicie la depuración.
-    public class UserConsumer : IUserConsumer
+
+    public class UserConsumer : IUserConsumer // Implementa interfaz IUserConsumer
     {
-        private readonly  ConectionUser _databaseConnection;
+        private readonly  ConectionUser _databaseConnection;// inyectando conexion
 
         public UserConsumer()
         {
-            _databaseConnection = new ConectionUser(); // Inicialización del objeto aquí
+            _databaseConnection = new ConectionUser(); // Inicializa conexión
         }
-        public bool CreateUser(string name, string gender, DateTime birthdate)
+        public bool CreateUser(User usuario)//crea usuario, resibe un objeto tipo User y devuelve un boolean
         {
             using (var connection = _databaseConnection.ConectUser())
             {
@@ -29,13 +25,14 @@ namespace UserService
                 connection.Open();
 
                 using (var command = connection.CreateCommand())
-                {
+                {   
+                    // Configura parámetros y ejecuta SP
                     command.CommandType = CommandType.StoredProcedure;
                     command.CommandText = "sp_crud_user";
                     command.Parameters.AddWithValue("@operation", "C");
-                    command.Parameters.AddWithValue("@name", name);
-                    command.Parameters.AddWithValue("@gender", gender);
-                    command.Parameters.AddWithValue("@birthdate", birthdate);
+                    command.Parameters.AddWithValue("@name", usuario.NameUser);
+                    command.Parameters.AddWithValue("@gender", usuario.GenderUser);
+                    command.Parameters.AddWithValue("@birthdate", usuario.Birthdate);
                     int rowsAffected = command.ExecuteNonQuery();
                     return rowsAffected > 0;
 
@@ -43,7 +40,7 @@ namespace UserService
             }
         }
 
-        public bool DeleteUser(int id)
+        public bool DeleteUser(int id)//elimina user resibe el id del usuario retorna un boolean
         {
             using (var connection = _databaseConnection.ConectUser())
             {
@@ -63,7 +60,7 @@ namespace UserService
             }
         }
 
-        public List<User> ReadUsers()
+        public List<User> ReadUsers()// devuelve un a lista de usuario timpo Model.User
         {
             List<User> userList = new List<User>();
             using (var connection = _databaseConnection.ConectUser())
@@ -84,7 +81,7 @@ namespace UserService
                             {
                                 IdUser = Convert.ToInt32(reader["user_id"]),
                                 NameUser = reader["name"].ToString(),
-                                Birthdate = reader["birthdate"].ToString(),
+                                Birthdate = Convert.ToDateTime(reader["birthdate"]),
                                 GenderUser = reader["gender"].ToString()
                             };
                             userList.Add(user);
@@ -97,7 +94,7 @@ namespace UserService
 
         }
 
-        public List<User> SearchUser(string name)
+        public List<User> SearchUser(string name) //resibe un string como parametro devuleve una lista de usuario tipo Model.User
         {
             List<User> userList = new List<User>();
             using (var connection = _databaseConnection.ConectUser())
@@ -119,7 +116,7 @@ namespace UserService
                             {
                                 IdUser = Convert.ToInt32(reader["user_id"]),
                                 NameUser = reader["name"].ToString(),
-                                Birthdate = reader["birthdate"].ToString(),
+                                Birthdate = Convert.ToDateTime(reader["birthdate"]),
                                 GenderUser = reader["gender"].ToString()
                             };
                             userList.Add(user);
@@ -131,7 +128,7 @@ namespace UserService
             return userList;
         }
 
-        public bool UpdateUser(string name, string gender, DateTime birthdate, int id)
+        public bool UpdateUser(User usuario)// actualiza un usuario, resibe como parametro un objeto tipo usaurio
         {
             using (var connection = _databaseConnection.ConectUser())
             {
@@ -143,10 +140,10 @@ namespace UserService
                     command.CommandType = CommandType.StoredProcedure;
                     command.CommandText = "sp_crud_user";
                     command.Parameters.AddWithValue("@operation", "U");
-                    command.Parameters.AddWithValue("@name", name);
-                    command.Parameters.AddWithValue("@gender", gender);
-                    command.Parameters.AddWithValue("@birthdate", birthdate);
-                    command.Parameters.AddWithValue("@id", id);
+                    command.Parameters.AddWithValue("@name", usuario.NameUser);
+                    command.Parameters.AddWithValue("@gender", usuario.GenderUser);
+                    command.Parameters.AddWithValue("@birthdate", usuario.Birthdate);
+                    command.Parameters.AddWithValue("@id", usuario.IdUser);
                     int rowsAffected = command.ExecuteNonQuery();
                     return rowsAffected > 0;
 
@@ -155,7 +152,41 @@ namespace UserService
           
         }
 
-     
+       public List<User> SearchUserId(int id) // resibe un id devuelve una lista de usuarios
+        {
+            List<User> userList = new List<User>();
+            using (var connection = _databaseConnection.ConectUser())
+            {
+
+                connection.Open();
+
+                using (var command = connection.CreateCommand())
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.CommandText = "sp_crud_user";
+                    command.Parameters.AddWithValue("@operation", "SID");
+                    command.Parameters.AddWithValue("@id", id);
+                    using (var reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            User user = new User
+                            {
+                                IdUser = Convert.ToInt32(reader["user_id"]),
+                                NameUser = reader["name"].ToString(),
+                                Birthdate = Convert.ToDateTime(reader["birthdate"]),
+                                GenderUser = reader["gender"].ToString()
+                            };
+                            userList.Add(user);
+                        }
+                    }
+
+                }
+            }
+            return userList;
+        }
+
+      
     }
 
   

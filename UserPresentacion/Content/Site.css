@@ -18,13 +18,13 @@
     border-radius: 0 10px 10px 0;
 
     height: 75vh;
-    /* Agrega un poco de espacio interno */
 }
+   
 .miclasedos {
-    flex-direction: column; /* Cambio importante */
+    flex-direction: column;
     border-radius: 10px 0 0 10px;
     height: 75vh;
-    /* Agrega un poco de espacio interno */
+ 
 }
 
 .custom-container {
@@ -48,6 +48,7 @@
     font-family: 'Poppins';
     font-weight: 800;
 }
+
 .parrafo {
     font-size: 14px;
     color: white;

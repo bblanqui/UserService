@@ -98,6 +98,8 @@
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
     <Content Include="Content\fetch.js" />
+    <Content Include="Content\ListUser.css" />
+    <Content Include="Content\ListUser.js" />
     <Content Include="Content\Site.css" />
     <Content Include="Global.asax" />
     <Content Include="Web.config" />
@@ -134,6 +136,7 @@
   <ItemGroup>
     <Content Include="Views\web.config" />
     <None Include="packages.config" />
+    <Content Include="Views\User\ListUsers.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -1,31 +1,31 @@
-﻿using Model;
+﻿using Model;// usamos el modelo
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Serialization;
-using System.ServiceModel;
-using System.Text;
+using System.ServiceModel;// Para servicios WCF
+
 
 namespace UserService
 {
-    // NOTA: puede usar el comando "Rename" del menú "Refactorizar" para cambiar el nombre de interfaz "IUserConsumer" en el código y en el archivo de configuración a la vez.
-    [ServiceContract]
+    [ServiceContract] // contrato de servicio WCF
     public interface IUserConsumer
     {
-        [OperationContract]
-        bool UpdateUser(string name, string gender, DateTime birthdate, int id);
+        [OperationContract] //operación del servicio
+        bool UpdateUser(User usuario); // Actualiza usuario
 
         [OperationContract]
-        bool CreateUser(string name, string gender, DateTime birthdate);
+        bool CreateUser(User usuario);// Crea usuario
 
         [OperationContract]
-        List<User> SearchUser(string name);
+        List<User> SearchUser(string name);// Busca por nombre
 
         [OperationContract]
-        List<User> ReadUsers();
+        List<User> ReadUsers(); // Obtiene todos los usuarios
 
         [OperationContract]
-        bool DeleteUser(int id);
+        bool DeleteUser(int id);// Elimina por id
+
+        [OperationContract]
+        List<User> SearchUserId(int id); // Busca por id
     }
 }
 
