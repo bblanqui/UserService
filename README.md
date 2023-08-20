@@ -14,8 +14,10 @@ Visual Studio 2019
 SQL Server
 .NET Framework 4.7
 Configuración
-Restaurar base de datos con script DB.sql
-Configurar cadenas de conexión en Web.config y App.config
+Restaurar base de datos que esta en Solution Items/DB.sql
+Configurar cadenas de conexión en UserPresentacion/Web.config/<connectionStrings>
+		<add name="cn" connectionString="Data Source = localhost; Initial Catalog = digital_bank; Integrated Security = True;"/>
+	</connectionStrings>
 Compilar solución
 Uso
 Ejecutar aplicación web
